@@ -22,6 +22,9 @@ public class Pengguna {
     private String email;
 
     @NotNull
+    private String namaLengkap;
+
+    @NotNull
     @Length(min = 8, max = 16, message = "Minimal {min} digit dan Maksimal {max} digit")
     private String kataSandi;
 

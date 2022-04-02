@@ -1,6 +1,7 @@
 package com.ondodox.ondodoxlibrary.models.entities;
 
 import lombok.Data;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -31,8 +32,11 @@ public class Kontributor {
     private String email;
 
     @NotNull
-    @Length(min = 8, max = 16, message = "Minimal {min} digit dan Maksimal {max} digit")
+    @Length(min = 8, message = "Minimal {min} digit dan Maksimal {max} digit")
     private String kataSandi;
+
+    @Column(columnDefinition = "boolean default false")
+    private boolean status;
 
     @OneToMany(mappedBy = "kontributor", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties({"kontributor"})

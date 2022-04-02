@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("pengguna")
 public class PenggunaController {
     @Autowired
