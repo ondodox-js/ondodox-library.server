@@ -1,36 +1,37 @@
 package com.ondodox.ondodoxlibrary.models.entities;
 
-import lombok.Data;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.sql.Date;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity(name = "peminjamans")
 public class Peminjaman {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_peminjaman", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_peminjaman")
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_buku")
     private Buku buku;
-
-    @Column(columnDefinition = "DATE DEFAULT CURRENT_DATE", nullable = false)
-    private Date tanggalPeminjaman;
 
     @Column(nullable = false)
     private Date tanggalKembali;
 
+    @Column(columnDefinition = "boolean default false")
     private boolean status;
 
     private Long jumlah;
     
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_transaksi")
+    @JoinColumn(name = "id_transaksi", referencedColumnName = "id_transaksi")
+    @JsonIgnoreProperties({"peminjamans", "transaksi"})
     private Transaksi transaksi;
 
 }

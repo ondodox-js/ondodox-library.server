@@ -13,18 +13,13 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("admin")
+@CrossOrigin(origins = "*")
 public class AdminController {
     @Autowired
     private AdminService service;
 
-    @GetMapping
-    public ResponseEntity<AdminResponse> index(AdminResponse response){
-        response.setStatus(true);
-        response.setResponse(service.findAll());
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
-    @PostMapping
-    public ResponseEntity<Object> store(@Valid @RequestBody AdminRequest request, Errors errors){
+    @PostMapping("login")
+    public ResponseEntity<Object> login(@Valid @RequestBody AdminRequest request, Errors errors){
         if (errors.hasErrors()){
             return new ResponseEntity<>(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
         }

@@ -3,6 +3,7 @@ package com.ondodox.ondodoxlibrary.controllers;
 import com.ondodox.ondodoxlibrary.dto.UserData;
 import com.ondodox.ondodoxlibrary.helpers.Response;
 import com.ondodox.ondodoxlibrary.models.entities.Kontributor;
+import com.ondodox.ondodoxlibrary.models.services.BukuService;
 import com.ondodox.ondodoxlibrary.models.services.KontributorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import javax.validation.Valid;
 public class KontributorController {
     @Autowired
     private KontributorService service;
+
 
     @GetMapping
     private ResponseEntity<Object> index(){
@@ -38,6 +40,11 @@ public class KontributorController {
             return new ResponseEntity<>(new Response(false, errors.getAllErrors()), HttpStatus.BAD_REQUEST);
         }
         return service.login(user);
+    }
+
+    @GetMapping("{id}/buku-ku")
+    private ResponseEntity<Object> bukuKu(@PathVariable("id") Long id){
+        return service.bukuKu(id);
     }
 
 }
