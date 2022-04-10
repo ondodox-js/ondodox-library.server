@@ -1,6 +1,5 @@
 package com.ondodox.ondodoxlibrary.dto.table;
 
-import com.ondodox.ondodoxlibrary.dto.Response.KontributorResponse;
 import com.ondodox.ondodoxlibrary.models.entities.Buku;
 import lombok.Data;
 

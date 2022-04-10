@@ -1,6 +1,7 @@
 package com.ondodox.ondodoxlibrary.models.services;
 
 import com.ondodox.ondodoxlibrary.dto.BukuData;
+import com.ondodox.ondodoxlibrary.dto.EmailData;
 import com.ondodox.ondodoxlibrary.helpers.DataToEntity;
 import com.ondodox.ondodoxlibrary.helpers.Response;
 import com.ondodox.ondodoxlibrary.models.entities.Buku;
@@ -16,6 +17,9 @@ import java.io.File;
 public class BukuService {
     @Autowired
     private BukuRepo repo;
+
+    @Autowired
+    private MailServices mailServices;
 
     public ResponseEntity<Object> findAll(){
         return new ResponseEntity<>(repo.findAll(), HttpStatus.OK);
@@ -55,5 +59,26 @@ public class BukuService {
 
     public ResponseEntity<Object> bukuPending(){
         return new ResponseEntity<>(repo.findByStatus(false), HttpStatus.OK);
+    }
+
+    public Response rilisBuku(Buku buku){
+        Buku data = repo.findById(buku.getId()).get();
+        EmailData email = new EmailData();
+        email.setTo(data.getKontributor().getEmail());
+        email.setSubject("Selamat, buku anda di terima!");
+        email.setComponent(data.bodyEmailRilis());
+
+        try {
+            buku.setStatus(true);
+            repo.save(buku);
+            mailServices.send(email);
+            return new Response(true, data);
+        }catch (Exception e){
+            return new Response(false, data);
+        }
+    }
+
+    public ResponseEntity<Object> top6(){
+        return new ResponseEntity<>(repo.findTop6ByStatusOrderByTanggalDesc(true), HttpStatus.OK);
     }
 }

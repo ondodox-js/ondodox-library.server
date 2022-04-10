@@ -24,7 +24,7 @@ public class TransaksiService {
     private PeminjamanRepo peminjamanRepo;
 
     public ResponseEntity<Object> insert(Transaksi transaksi){
-        try{
+//        try{
             Transaksi transaksi1 = transaksiRepo.save(transaksi);
             List<Peminjaman> peminjamanList = transaksi1.getPeminjamans();
             for (Peminjaman peminjaman : peminjamanList){
@@ -34,10 +34,10 @@ public class TransaksiService {
 
             Transaksi transaksiData = transaksiRepo.findById(transaksi1.getId()).get();
 
-            return new ResponseEntity<>(new TransaksiResponse(transaksiData), HttpStatus.OK);
-        }catch (Exception e){
-            return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+            return new ResponseEntity<>(transaksiData, HttpStatus.OK);
+//        }catch (Exception e){
+//            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
     }
 
     public List<TransaksiResponse> findAll(){

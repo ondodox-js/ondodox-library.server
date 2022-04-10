@@ -2,6 +2,7 @@ package com.ondodox.ondodoxlibrary.dto.Response;
 
 import com.ondodox.ondodoxlibrary.dto.table.PeminjamanTable;
 import com.ondodox.ondodoxlibrary.models.entities.Peminjaman;
+import com.ondodox.ondodoxlibrary.models.entities.Pengguna;
 import com.ondodox.ondodoxlibrary.models.entities.Transaksi;
 import lombok.Data;
 
@@ -15,7 +16,7 @@ public class TransaksiResponse {
     private boolean status;
     private Date tanggalTransaksi;
     private Long totalPembayaran;
-    private PenggunaResponse pengguna;
+    private Pengguna pengguna;
     private List<PeminjamanResponse> peminjamans = new ArrayList<>();
 
     public TransaksiResponse(Transaksi transaksi) {
@@ -24,7 +25,6 @@ public class TransaksiResponse {
         tanggalTransaksi = transaksi.getTanggalTransaksi();
         totalPembayaran = transaksi.getTotalPembayaran();
 
-        pengguna = new PenggunaResponse(transaksi.getPengguna());
         for (Peminjaman peminjaman : transaksi.getPeminjamans()){
             peminjamans.add(new PeminjamanResponse(peminjaman));
         }

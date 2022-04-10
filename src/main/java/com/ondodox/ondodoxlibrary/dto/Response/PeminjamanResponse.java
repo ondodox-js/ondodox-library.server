@@ -20,5 +20,6 @@ public class PeminjamanResponse {
         status = peminjaman.isStatus();
         tanggalKembali = peminjaman.getTanggalKembali();
         buku = new BukuResponse(peminjaman.getBuku());
+
     }
 }

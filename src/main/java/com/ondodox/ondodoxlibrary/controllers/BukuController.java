@@ -2,8 +2,10 @@ package com.ondodox.ondodoxlibrary.controllers;
 
 import com.ondodox.ondodoxlibrary.dto.BukuData;
 import com.ondodox.ondodoxlibrary.helpers.Response;
+import com.ondodox.ondodoxlibrary.models.entities.Buku;
 import com.ondodox.ondodoxlibrary.models.entities.Transaksi;
 import com.ondodox.ondodoxlibrary.models.services.BukuService;
+import com.ondodox.ondodoxlibrary.models.services.MailServices;
 import com.ondodox.ondodoxlibrary.models.services.TransaksiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,8 @@ public class BukuController {
     private BukuService service;
     @Autowired
     private TransaksiService transaksiService;
+    @Autowired
+    private MailServices mailServices;
 
     @GetMapping
     private ResponseEntity<Object> index(){
@@ -53,4 +57,16 @@ public class BukuController {
         return transaksiService.insert(transaksi);
     }
 
+    @PostMapping("rilis-buku")
+    private ResponseEntity<Object> rilisBuku(@RequestBody Buku buku){
+        if (buku.getId() != null && service.find(buku.getId()) != null){
+            return new ResponseEntity<>(service.rilisBuku(buku), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @GetMapping("top")
+    private ResponseEntity<Object> top6(){
+        return service.top6();
+    }
 }

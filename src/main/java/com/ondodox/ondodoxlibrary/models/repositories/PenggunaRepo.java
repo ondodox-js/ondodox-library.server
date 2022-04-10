@@ -4,4 +4,5 @@ import com.ondodox.ondodoxlibrary.models.entities.Pengguna;
 import org.springframework.data.repository.CrudRepository;
 
 public interface PenggunaRepo extends CrudRepository<Pengguna, Long> {
+    Pengguna findByEmail(String email);
 }

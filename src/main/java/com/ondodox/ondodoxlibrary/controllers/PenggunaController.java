@@ -1,5 +1,6 @@
 package com.ondodox.ondodoxlibrary.controllers;
 
+import com.ondodox.ondodoxlibrary.dto.UserData;
 import com.ondodox.ondodoxlibrary.helpers.Response;
 import com.ondodox.ondodoxlibrary.models.entities.Pengguna;
 import com.ondodox.ondodoxlibrary.models.services.PenggunaService;
@@ -29,5 +30,13 @@ public class PenggunaController {
             return new ResponseEntity<>(new Response(false, errors.getAllErrors()), HttpStatus.BAD_REQUEST);
         }
         return service.insert(pengguna);
+    }
+
+    @PostMapping("login")
+    public ResponseEntity<Object> masuk(@Valid @RequestBody UserData pengguna, Errors errors){
+        if (errors.hasErrors()){
+            return new  ResponseEntity<>(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
+        }
+        return service.masuk(pengguna);
     }
 }

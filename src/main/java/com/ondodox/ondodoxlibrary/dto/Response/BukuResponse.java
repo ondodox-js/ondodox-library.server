@@ -26,6 +26,6 @@ public class BukuResponse {
         sinopsis = buku.getSinopsis();
         status = buku.isStatus();
         tahunTerbit = buku.getTahunTerbit();
-        kontributor = new KontributorResponse(buku.getKontributor());
+//        kontributor = new KontributorResponse(buku.getKontributor());
     }
 }

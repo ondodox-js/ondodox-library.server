@@ -8,4 +8,6 @@ import java.util.List;
 public interface BukuRepo extends CrudRepository<Buku, Long> {
     List<Buku> findBukuByKontributor_Id(Long id);
     List<Buku> findByStatus(boolean status);
+    List<Buku> findTop6ByStatusOrderByTanggalDesc(boolean status);
+
 }

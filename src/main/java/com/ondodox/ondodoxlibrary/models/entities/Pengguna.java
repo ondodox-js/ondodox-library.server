@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @Data
 public class Pengguna {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_pengguna")
     private Long id;
 
@@ -25,7 +25,7 @@ public class Pengguna {
     private String namaLengkap;
 
     @NotNull
-    @Length(min = 8, max = 16, message = "Minimal {min} digit dan Maksimal {max} digit")
+    @Length(min = 8, message = "Minimal {min} digit dan Maksimal {max} digit")
     private String kataSandi;
 
     @Column(columnDefinition = "boolean default false")
